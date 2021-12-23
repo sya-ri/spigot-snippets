@@ -1,0 +1,19 @@
+name: Check
+on:
+  - push
+  - pull_request
+jobs:
+  snippets:
+    name: Check Snippets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v2
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: 17
+          cache: gradle
+      - name: Test
+        run: ./gradlew checkSnippets
