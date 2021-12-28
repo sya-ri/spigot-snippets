@@ -8,15 +8,26 @@ apply(from = "readme.gradle.kts")
 
 val generateReadme: () -> String by project
 
-repositories {
-    mavenCentral()
-    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
-    maven("https://oss.sonatype.org/content/groups/public/")
+allprojects {
+    apply(plugin = "com.github.ben-manes.versions")
+    apply(plugin = "org.jmailen.kotlinter")
+
+    repositories {
+        mavenCentral()
+    }
 }
 
-dependencies {
-    implementation(kotlin("stdlib"))
-    compileOnly("org.spigotmc:spigot-api:1.18.1-R0.1-SNAPSHOT")
+subprojects {
+    apply(plugin = "kotlin")
+
+    repositories {
+        maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
+        maven("https://oss.sonatype.org/content/groups/public/")
+    }
+
+    dependencies {
+        implementation(kotlin("stdlib"))
+    }
 }
 
 task("updateSnippets") {

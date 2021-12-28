@@ -1,6 +1,8 @@
 fun _generateReadme(): String {
-    val srcDir = projectDir.resolve("src/main/kotlin")
-    val files = srcDir.listFiles().orEmpty().toList()
+    val srcDirs = setOf(
+        projectDir.resolve("src/main/kotlin"),
+    )
+    val files = srcDirs.flatMap { it.listFiles().orEmpty().toList() }
     return buildString {
         appendLine("# spigot-snippets")
         appendLine()
@@ -10,7 +12,7 @@ fun _generateReadme(): String {
         appendLine("## List")
         files.forEach { file ->
             val name = file.nameWithoutExtension
-            val link = "src/main/kotlin/${file.name}"
+            val link = file.toRelativeString(projectDir)
             appendLine("- [$name]($link)")
         }
     }
