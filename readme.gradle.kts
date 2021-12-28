@@ -1,6 +1,7 @@
 fun _generateReadme(): String {
     val srcDirs = setOf(
         projectDir.resolve("src/main/kotlin"),
+        project(":nms:v1_17_1").projectDir.resolve("src/main/kotlin")
     )
     val files = srcDirs.flatMap { it.listFiles().orEmpty().toList() }
     return buildString {
